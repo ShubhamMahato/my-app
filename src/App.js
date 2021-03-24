@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+class App extends Component {
+  state = {
+    user: [],
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  saveUser = (e) => {
+    this.setState({ input: e.target.value });
+  };
+
+  addNewUser = () => {
+    let { user: newUser, input } = this.state;
+    newUser.push(input);
+    this.setState({user: newUser});
+  };
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          onChange={this.saveUser}
+        />
+        <button onClick={this.addNewUser}> Add User </button>
+        <ol>
+          {this.state.user.map((subItems, sIndex) => {
+            return <li key={sIndex}> {subItems}</li>
+          })}
+        </ol>
+      </div>
+    );
+  }
 }
 
 export default App;
